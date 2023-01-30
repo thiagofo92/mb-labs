@@ -12,5 +12,8 @@
     "eslint-plugin-promise": "^6.0.0",
     "typescript": "*",
     "vitest": "^0.28.3"
+  },
+  "scripts": {
+    "test": "vitest"
   }
 }
