@@ -1,5 +1,6 @@
 export interface EventEntity {
-  id: number
+  id?: number
   name: string
   date: Date
+  price: number
 }
