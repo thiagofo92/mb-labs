@@ -1,5 +1,5 @@
 export interface OrderEntity {
-  idUser: string
+  idLogin: string
   idEvent: string
   quantity: number
   payment: string
