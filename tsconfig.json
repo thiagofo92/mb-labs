@@ -2,10 +2,12 @@
   "compilerOptions": {
     "target": "ES2022",
     "module": "commonjs",
-    "rootDir": "/src",
+    "rootDir": "src",
     "outDir": "/dist",
-     // "baseUrl": "./",                                  
-    // "paths": {},        
+    "baseUrl": "src",                                  
+    "paths": {
+      "@/*" : ["*"]
+    },        
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
