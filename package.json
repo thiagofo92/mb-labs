@@ -10,10 +10,17 @@
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-n": "^15.0.0",
     "eslint-plugin-promise": "^6.0.0",
+    "prisma": "^4.9.0",
     "typescript": "*",
     "vitest": "^0.28.3"
   },
   "scripts": {
     "test": "vitest"
+  },
+  "prisma": {
+    "schema": "src/infra/repositories/prisma/schema/db.prisma"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.9.0"
   }
 }
