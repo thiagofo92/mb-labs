@@ -1,12 +1,12 @@
 import { type LoginEntity } from '@/core/entities'
-import { LoginCreateError, LoginValidateError } from '@/core/repositories/error'
+import { LoginCreateRepositoryError, LoginValidateRepositoryError } from '@/core/repositories/error'
 import { type LoginContractRepository } from '@/core/repositories/login-repository'
 import { left, right, type Either } from '@/shared/error/either'
 import { connection } from './connection/connection'
 import { type LoginCreateOutPutModel } from '@/app/model/output'
 
 export class LoginPrismaRepository implements LoginContractRepository {
-  async create (input: LoginEntity): Promise<Either<LoginCreateError, LoginCreateOutPutModel>> {
+  async create (input: LoginEntity): Promise<Either<LoginCreateRepositoryError, LoginCreateOutPutModel>> {
     try {
       const result = await connection.login.create({
         data: {
@@ -17,11 +17,11 @@ export class LoginPrismaRepository implements LoginContractRepository {
       })
       return right({ id: result.id })
     } catch (error: any) {
-      return left(new LoginCreateError(error.message))
+      return left(new LoginCreateRepositoryError(error.message))
     }
   }
 
-  async validate (input: LoginEntity): Promise<Either<LoginValidateError, boolean>> {
+  async validate (input: LoginEntity): Promise<Either<LoginValidateRepositoryError, { id: string } | null>> {
     try {
       const result = await connection.login.findFirst({
         where: {
@@ -29,11 +29,11 @@ export class LoginPrismaRepository implements LoginContractRepository {
           password: input.password
         }
       })
-      if (result) return right(true)
+      if (result) return right({ id: result.id })
 
-      return right(false)
+      return right(null)
     } catch (error: any) {
-      return left(new LoginValidateError(error.message))
+      return left(new LoginValidateRepositoryError(error.message))
     }
   }
 }
