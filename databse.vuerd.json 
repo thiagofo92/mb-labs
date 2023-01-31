@@ -3,9 +3,9 @@
     "version": "2.2.11",
     "width": 2000,
     "height": 2000,
-    "scrollTop": 0,
-    "scrollLeft": 0,
-    "zoomLevel": 0.1,
+    "scrollTop": -151.33333333333337,
+    "scrollLeft": -174.16666666666674,
+    "zoomLevel": 0.9,
     "show": {
       "tableComment": true,
       "columnComment": true,
@@ -163,10 +163,10 @@
           }
         ],
         "ui": {
-          "active": true,
+          "active": false,
           "left": 605,
           "top": 333,
-          "zIndex": 316,
+          "zIndex": 4,
           "widthName": 60,
           "widthComment": 60
         },
@@ -272,7 +272,7 @@
           {
             "name": "price",
             "comment": "",
-            "dataType": "",
+            "dataType": "FLOAT",
             "default": "",
             "option": {
               "autoIncrement": false,
@@ -297,7 +297,7 @@
           "active": false,
           "left": 116,
           "top": 333,
-          "zIndex": 304,
+          "zIndex": 8,
           "widthName": 60,
           "widthComment": 60
         },
@@ -359,7 +359,7 @@
           "active": false,
           "left": 116,
           "top": 87,
-          "zIndex": 222,
+          "zIndex": 1,
           "widthName": 65.603515625,
           "widthComment": 60
         },
@@ -392,6 +392,29 @@
               "widthDefault": 60
             },
             "id": "e2a2ad2f-94d2-45bb-9c01-bb069f670cdd"
+          },
+          {
+            "name": "name",
+            "comment": "",
+            "dataType": "VARCHAR(15)",
+            "default": "",
+            "option": {
+              "autoIncrement": false,
+              "primaryKey": false,
+              "unique": false,
+              "notNull": true
+            },
+            "ui": {
+              "active": false,
+              "pk": false,
+              "fk": false,
+              "pfk": false,
+              "widthName": 60,
+              "widthComment": 60,
+              "widthDataType": 87.72509765625,
+              "widthDefault": 60
+            },
+            "id": "25243932-7148-4048-9adf-4cc4fd0a462d"
           },
           {
             "name": "email",
@@ -444,7 +467,7 @@
           "active": false,
           "left": 606,
           "top": 89,
-          "zIndex": 297,
+          "zIndex": 23,
           "widthName": 60,
           "widthComment": 60
         },
@@ -503,7 +526,7 @@
             "e2a2ad2f-94d2-45bb-9c01-bb069f670cdd"
           ],
           "x": 793.362548828125,
-          "y": 219.5,
+          "y": 240,
           "direction": "bottom"
         },
         "end": {
