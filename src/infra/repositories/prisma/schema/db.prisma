@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Login {
-  id          String @id @unique
+  id          String      @id @unique
   email       String
   password    String
   Order       Order[]
@@ -17,29 +17,31 @@ model Login {
 }
 
 model Event {
-  id          Int @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
+  idType      Int         @map("id_type") @unique
   name        String
   date        DateTime
-  price       Float
-  EventType   EventType  @relation(fields: [idType], references: [id])
-  idType      Int @map("id_type") @unique
+  price       Decimal     @db.Decimal(15,2)
+  EventType   EventType   @relation(fields: [idType], references: [id])
   Order       Order[]
 
   @@map("event")
 }
 
 model EventType {
-  id           Int @id @default(autoincrement()) @unique
+  id           Int        @id @default(autoincrement()) @unique
   Event        Event?
   type         String
+
+  @@map("event_type")
 }
 
 model Order {
-  id          Int @id @default(autoincrement()) @unique
-  Login       Login @relation(fields: [idLogin], references: [id])
-  idLogin     String @map("id_login")
-  Event       Event @relation(fields: [idEvent], references: [id])
-  idEvent     Int @map("id_event")
+  id          Int         @id @default(autoincrement()) @unique
+  idLogin     String      @map("id_login")
+  idEvent     Int         @map("id_event")
+  Login       Login       @relation(fields: [idLogin], references: [id])
+  Event       Event       @relation(fields: [idEvent], references: [id])
   amount      Int
   payment     String
 
