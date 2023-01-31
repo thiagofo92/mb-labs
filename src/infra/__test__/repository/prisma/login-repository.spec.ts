@@ -34,12 +34,13 @@ describe('# Login repository', () => {
   test('Success to validate the login', async () => {
     const { sut, login } = factory()
 
-    sut.validate.mockResolvedValueOnce(right(true))
+    sut.validate.mockResolvedValueOnce(right({ id: '' }))
 
     const result = await sut.validate(login)
 
     expect(result.value).toBeTruthy()
   })
+
   test.todo('Error to create the login')
-  test.todo('Error to validate the login')
+  test.todo('Unauthorized login')
 })
