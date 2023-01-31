@@ -1,14 +1,57 @@
+import { type OrderEntity } from '@/core/entities'
+import { OrderExecuteError } from '@/core/repositories/error/order-error'
+import { type OrderContractRepository } from '@/core/repositories/order-repository'
 import { OrderPrismaRepository } from '@/infra/repositories/prisma/order-repository'
-import { describe, test, expect } from 'vitest'
+import { left, right } from '@/shared/error/either'
+import { describe, test, expect, vi, beforeEach, type MockedObject } from 'vitest'
+
+interface Factory {
+  sut: MockedObject<OrderContractRepository>
+}
+
+function factory (): Factory {
+  const sut = vi.mocked(new OrderPrismaRepository())
+  return { sut }
+}
+
+vi.mock('@/infra/repositories/prisma/order-repository')
 
 describe('# Order repository', () => {
-  test('Order an event', async () => {
-    const order = new OrderPrismaRepository()
+  beforeEach(() => {
+    vi.resetAllMocks()
+  })
 
-    const result = await order.execute()
+  test('Success to execute order to an event', async () => {
+    const { sut } = factory()
+    const content: OrderEntity = {
+      idLogin: '',
+      idEvent: 0,
+      amount: 0,
+      payment: ''
+    }
 
-    const expected = ''
+    sut.execute.mockResolvedValueOnce(right(true))
+
+    const result = await sut.execute(content)
+
+    const expected = true
 
     expect(result.value).toStrictEqual(expected)
+  })
+
+  test('Error when try to execute a order to an event', async () => {
+    const { sut } = factory()
+    const content: OrderEntity = {
+      idLogin: '',
+      idEvent: 0,
+      amount: 0,
+      payment: ''
+    }
+
+    sut.execute.mockResolvedValueOnce(left(new OrderExecuteError('Test')))
+
+    const result = await sut.execute(content)
+
+    expect(result.value).instanceOf(OrderExecuteError)
   })
 })
