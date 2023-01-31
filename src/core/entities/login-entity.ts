@@ -6,14 +6,13 @@ interface Login {
 }
 
 export class LoginEntity {
-  public id?: string
+  public id: string
   public email: string
   public password: string
 
-  constructor({ email, password}: Login) {
+  constructor ({ email, password }: Login) {
     this.id = randomUUID()
     this.email = email
     this.password = password
   }
-
 }
