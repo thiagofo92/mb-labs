@@ -1,3 +1,4 @@
+import { OrderPrismaRepository } from '@/infra/repositories/prisma/order-repository'
 import { describe, test, expect } from 'vitest'
 
 describe('# Order repository', () => {
