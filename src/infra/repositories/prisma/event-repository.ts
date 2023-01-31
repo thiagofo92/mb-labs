@@ -4,6 +4,7 @@ import { EventFindAllError, EventFindByTypeError, EventFindByRangeOfDateError } 
 import { type Either, left, right } from '@/shared/error/either'
 import { connection } from './connection/connection'
 import { type EventOutPutModel } from '@/app/model/output'
+import { type EventRangeOfDateInput } from '@/app/model/input'
 
 type PrismaEventOutPut = Array<Event & {
   EventType: {
@@ -32,11 +33,13 @@ export class EventPrismaRepository implements EventContractRepository {
     }
   }
 
-  async findByType (): Promise<Either<EventFindByTypeError, EventOutPutModel[]>> {
+  async findByType (input: string): Promise<Either<EventFindByTypeError, EventOutPutModel[]>> {
     try {
       const result = await connection.event.findMany({
         where: {
-
+          EventType: {
+            type: input
+          }
         },
         include: {
           EventType: {
@@ -55,11 +58,14 @@ export class EventPrismaRepository implements EventContractRepository {
     }
   }
 
-  async findByRangeOfDate (): Promise<Either<EventFindByRangeOfDateError, EventOutPutModel[]>> {
+  async findByRangeOfDate (input: EventRangeOfDateInput): Promise<Either<EventFindByRangeOfDateError, EventOutPutModel[]>> {
     try {
       const result = await connection.event.findMany({
         where: {
-
+          date: {
+            gte: input.startDate,
+            lte: input.endDate
+          }
         },
         include: {
           EventType: {
@@ -84,7 +90,7 @@ export class EventPrismaRepository implements EventContractRepository {
       name: item.name,
       type: item.EventType.type,
       date: item.date,
-      price: item.price
+      price: String(item.price)
     }))
   }
 }
