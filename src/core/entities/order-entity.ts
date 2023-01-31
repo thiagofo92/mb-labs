@@ -1,6 +1,6 @@
 export interface OrderEntity {
   idLogin: string
-  idEvent: string
-  quantity: number
+  idEvent: number
+  amount: number
   payment: string
 }
