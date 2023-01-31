@@ -3,5 +3,5 @@ export interface EventOutPutModel {
   type: string
   name: string
   date: Date
-  price: number
+  price: string
 }
