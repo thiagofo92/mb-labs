@@ -10,7 +10,7 @@ export class OrderController {
   async execute ({ body }: RequestInputModel<OrderExecuteInput>): Promise<ResponseOutPutModel> {
     const result = await this.orderUseCase.execute(body)
 
-    if (result.isLeft()) return internalError()
+    if (result.isLeft()) return internalError(result.value.message)
 
     return successResponse(result.value)
   }
