@@ -73,7 +73,7 @@ export class EventPrismaRepository implements EventContractRepository {
     try {
       const result = await connection.event.findMany({
         where: {
-          date: {
+          startDate: {
             gte: input.startDate,
             lte: input.endDate
           }
@@ -102,7 +102,8 @@ export class EventPrismaRepository implements EventContractRepository {
       id: item.id,
       name: item.name,
       type: item.EventType.type,
-      date: item.date,
+      startDate: item.startDate,
+      endDate: item.endDate,
       price: String(item.price)
     }))
   }
