@@ -14,7 +14,9 @@ export function createdReponse (data: any): ResponseOutPutModel {
   }
 }
 
-export function internalError (): ResponseOutPutModel {
+export function internalError (data: string): ResponseOutPutModel {
+  console.log(data)
+
   return {
     statusCode: 500,
     data: 'Internal Error'
