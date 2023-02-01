@@ -1,0 +1,14 @@
+version: '3.8'
+
+services: 
+    mb-labs:
+        image: mysql:8
+        container_name: mb-labs
+        restart: always
+        ports:
+            -   '3306:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: 12344321
+            MYSQL_USER: admin
+            MYSQL_PASSWORD: 12344321
+            MYSQL_DATABASE: mb_labs
