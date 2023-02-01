@@ -5,6 +5,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/express": "^4.17.16",
+    "@types/swagger-ui-express": "^4.1.3",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "eslint": "^8.0.1",
     "eslint-config-standard-with-typescript": "^33.0.0",
@@ -20,10 +21,16 @@
   },
   "scripts": {
     "test": "vitest",
-    "dev": "tsnd --ignore-watch node_modules --transpile-only -r tsconfig-paths/register src/main/index.ts"
+    "dev": "tsnd --ignore-watch node_modules --transpile-only -r tsconfig-paths/register src/main/index.ts",
+    "docker:up": "docker-compose -f ./docker/docker-compose.yml up -d & yarn migrate:create",
+    "docker:build": "docker-compose -f ./docker/docker-compose.yml up -d & yarn migrate:create",
+    "migrate:create": "prisma migrate dev --name create_tables",
+    "migrate:reset": "prisma migrate reset",
+    "seed": "prisma db seed"
   },
   "prisma": {
-    "schema": "src/infra/repositories/prisma/schema/db.prisma"
+    "schema": "src/infra/repositories/prisma/schema/db.prisma",
+    "seed": "ts-node src/infra/repositories/prisma/seed/data-fake.ts"
   },
   "dependencies": {
     "@prisma/client": "^4.9.0",
