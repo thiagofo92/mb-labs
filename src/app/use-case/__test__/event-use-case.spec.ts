@@ -2,7 +2,7 @@ import { type MockedObject, describe, expect, test, vi, beforeEach, afterAll } f
 
 import { type EventContractRepository } from '@/core/repositories'
 import { type EventUseCaseContract } from '@/core/use-case'
-import { EventPrismaRepository } from '@/infra/repositories'
+import { EventPrismaRepository } from '@/infra/repositories/prisma'
 import { EventUseCase } from '../event-use-case'
 import { left, right } from '@/shared/error/either'
 import { type EventOutPutModel } from '@/app/model/output'
@@ -25,7 +25,7 @@ function factory (): Factory {
   return { sut, repositoryMocked }
 }
 
-vi.mock('@/infra/repositories')
+vi.mock('@/infra/repositories/prisma/event-repository')
 
 describe('# Event usecase', () => {
   beforeEach(() => {
