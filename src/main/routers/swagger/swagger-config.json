@@ -1,0 +1,25 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de MB-Labs",
+    "description": "API para consulta dos eventos de empresas e universidades",
+    "version": "1.0.0",
+    "contact": {
+      "email": "thiago_hyd@hotmail.com"
+    }
+  },
+  "tags": [
+    {
+      "name": "Order",
+      "description": "Executar a compra do ingresso"
+    },
+    {
+      "name": "Event",
+      "description": "Buscar os eventos que estão disponiveis"
+    },
+    {
+      "name": "Login",
+      "description": "Criar o login e validar"
+    }
+  ]
+}
