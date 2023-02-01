@@ -1,6 +1,6 @@
-export class EventUseCaseError extends Error {
+export class EventUseCaseNotFoundError extends Error {
   constructor (message: string) {
     super(message)
-    this.name = 'EventUseCaseError'
+    this.name = 'EventUseCaseNotFoundError'
   }
 }
