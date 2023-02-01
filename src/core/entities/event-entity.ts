@@ -2,6 +2,7 @@ export interface EventEntity {
   id?: number
   idType: number
   name: string
-  date: Date
+  startDate: Date
+  endDate: Date
   price: number
 }
