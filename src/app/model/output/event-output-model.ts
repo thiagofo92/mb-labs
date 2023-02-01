@@ -2,6 +2,7 @@ export interface EventOutPutModel {
   id: number
   type: string
   name: string
-  date: Date
+  startDate: Date
+  endDate: Date
   price: string
 }
