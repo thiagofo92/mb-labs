@@ -16,13 +16,23 @@ import {
 interface Factory {
   sut: EventUseCaseContract
   repositoryMocked: MockedObject<EventContractRepository>
+  fakeData: EventOutPutModel []
 }
 
 function factory (): Factory {
   const repositoryMocked = vi.mocked(new EventPrismaRepository())
   const sut = new EventUseCase(repositoryMocked)
-
-  return { sut, repositoryMocked }
+  const fakeData: EventOutPutModel [] = [{
+    id: 1,
+    startDate: new Date(),
+    endDate: new Date(),
+    startHour: new Date(),
+    endHour: new Date(),
+    type: 'universidade',
+    name: 'USP',
+    price: '1111'
+  }]
+  return { sut, repositoryMocked, fakeData }
 }
 
 vi.mock('@/infra/repositories/prisma/event-repository')
@@ -37,25 +47,21 @@ describe('# Event usecase', () => {
     vi.useRealTimers()
   })
   test('Success find all event', async () => {
-    const { sut, repositoryMocked } = factory()
+    const { sut, repositoryMocked, fakeData } = factory()
 
-    const fake: EventOutPutModel[] = [{
-      id: 1,
-      name: 'USP',
-      date: new Date(),
-      price: '111.11',
-      type: 'empresa'
-    }]
-
-    repositoryMocked.findAll.mockResolvedValueOnce(right(fake))
+    repositoryMocked.findAll.mockResolvedValueOnce(right(fakeData))
     const result = await sut.findAll()
+    const date = new Date()
 
     const expected: EventOutPutModel[] = [{
       id: 1,
+      startDate: date,
+      endDate: date,
+      startHour: date,
+      endHour: date,
+      type: 'universidade',
       name: 'USP',
-      date: new Date(),
-      price: '111.11',
-      type: 'empresa'
+      price: '1111'
     }]
 
     expect(result.value).toStrictEqual(expected)
@@ -80,25 +86,22 @@ describe('# Event usecase', () => {
   })
 
   test('Success find by type event', async () => {
-    const { sut, repositoryMocked } = factory()
+    const { sut, repositoryMocked, fakeData } = factory()
 
-    const fake: EventOutPutModel[] = [{
-      id: 1,
-      name: 'USP',
-      date: new Date(),
-      price: '111.11',
-      type: 'empresa'
-    }]
-
-    repositoryMocked.findByType.mockResolvedValueOnce(right(fake))
+    repositoryMocked.findByType.mockResolvedValueOnce(right(fakeData))
     const result = await sut.findByType('empresa')
+
+    const date = new Date()
 
     const expected: EventOutPutModel[] = [{
       id: 1,
+      startDate: date,
+      endDate: date,
+      startHour: date,
+      endHour: date,
+      type: 'universidade',
       name: 'USP',
-      date: new Date(),
-      price: '111.11',
-      type: 'empresa'
+      price: '1111'
     }]
 
     expect(result.value).toStrictEqual(expected)
@@ -123,28 +126,25 @@ describe('# Event usecase', () => {
   })
 
   test('Success find by range of date event', async () => {
-    const { sut, repositoryMocked } = factory()
+    const { sut, repositoryMocked, fakeData } = factory()
 
-    const fake: EventOutPutModel[] = [{
-      id: 1,
-      name: 'USP',
-      date: new Date(),
-      price: '111.11',
-      type: 'empresa'
-    }]
-
-    repositoryMocked.findByRangeOfDate.mockResolvedValueOnce(right(fake))
+    repositoryMocked.findByRangeOfDate.mockResolvedValueOnce(right(fakeData))
     const result = await sut.findByRangeOfDate({
       startDate: new Date(),
       endDate: new Date()
     })
 
+    const date = new Date()
+
     const expected: EventOutPutModel[] = [{
       id: 1,
+      startDate: date,
+      endDate: date,
+      startHour: date,
+      endHour: date,
+      type: 'universidade',
       name: 'USP',
-      date: new Date(),
-      price: '111.11',
-      type: 'empresa'
+      price: '1111'
     }]
 
     expect(result.value).toStrictEqual(expected)

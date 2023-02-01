@@ -20,8 +20,10 @@ model Event {
   id          Int         @id @default(autoincrement())
   idType      Int         @map("id_type") @unique
   name        String
-  startDate   DateTime
-  endDate     DateTime
+  startDate   DateTime    @db.Date()
+  endDate     DateTime    @db.Date()
+  startHour   DateTime    @db.Time()
+  endHour     DateTime    @db.Time()
   price       Decimal     @db.Decimal(15,2)
   EventType   EventType   @relation(fields: [idType], references: [id])
   Order       Order[]

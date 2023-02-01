@@ -19,12 +19,16 @@ interface Factory {
 function factory (): Factory {
   const repository = new EventPrismaRepository()
   const sut = vi.mocked(repository)
-  const mockedData = [{
+  const mockedData: EventOutPutModel [] = [{
     id: 1,
-    date: new Date(),
+    startDate: new Date(),
+    endDate: new Date(),
+    startHour: new Date(),
+    endHour: new Date(),
     type: 'universidade',
     name: 'USP',
     price: '1111'
+
   }]
   return { sut, mockedData }
 }
@@ -50,7 +54,10 @@ describe('# Event repository', () => {
 
     const expected: EventOutPutModel [] = [{
       id: 1,
-      date: new Date(),
+      startDate: new Date(),
+      endDate: new Date(),
+      startHour: new Date(),
+      endHour: new Date(),
       type: 'universidade',
       name: 'USP',
       price: '1111'
@@ -68,7 +75,10 @@ describe('# Event repository', () => {
 
     const expected: EventOutPutModel [] = [{
       id: 1,
-      date: new Date(),
+      startDate: new Date(),
+      endDate: new Date(),
+      startHour: new Date(),
+      endHour: new Date(),
       type: 'universidade',
       name: 'USP',
       price: '1111'
@@ -90,7 +100,10 @@ describe('# Event repository', () => {
 
     const expected: EventOutPutModel [] = [{
       id: 1,
-      date: new Date(),
+      startDate: new Date(),
+      endDate: new Date(),
+      startHour: new Date(),
+      endHour: new Date(),
       type: 'universidade',
       name: 'USP',
       price: '1111'

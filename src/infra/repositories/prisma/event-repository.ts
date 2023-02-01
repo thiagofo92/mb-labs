@@ -104,6 +104,8 @@ export class EventPrismaRepository implements EventContractRepository {
       type: item.EventType.type,
       startDate: item.startDate,
       endDate: item.endDate,
+      startHour: item.startHour,
+      endHour: item.endHour,
       price: String(item.price)
     }))
   }

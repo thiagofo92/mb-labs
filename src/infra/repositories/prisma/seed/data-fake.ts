@@ -15,12 +15,16 @@ void (async () => {
       data:
         { type: 'empresa' }
     })
+    const startDate = new Date()
+    const endDate = new Date()
 
     const event = await connection.event.create({
       data: {
         name: 'Palestra',
-        startDate: new Date(),
-        endDate: new Date(),
+        startDate,
+        endDate,
+        startHour: startDate,
+        endHour: endDate,
         price: '1111.24',
         EventType: {
           connect: {
