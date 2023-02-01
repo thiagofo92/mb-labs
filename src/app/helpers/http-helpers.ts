@@ -41,3 +41,10 @@ export function forbbinded (): ResponseOutPutModel {
     data: 'Forbbinded'
   }
 }
+
+export function badRequest (data: any): ResponseOutPutModel {
+  return {
+    statusCode: 400,
+    data
+  }
+}
