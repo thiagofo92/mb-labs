@@ -35,6 +35,6 @@ export class EventController {
   private checkErrors (instance: Error): ResponseOutPutModel {
     if (instance instanceof EventUseCaseNotFoundError) return notFound()
 
-    return internalError()
+    return internalError(instance.message)
   }
 }
