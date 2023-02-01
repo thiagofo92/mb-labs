@@ -27,6 +27,6 @@ export class LoginController {
   private checkErrors (instance: Error): ResponseOutPutModel {
     if (instance instanceof LoginValidateNotAuthorizedUseCaseError) return notAuthorized()
 
-    return internalError()
+    return internalError(instance.message)
   }
 }
