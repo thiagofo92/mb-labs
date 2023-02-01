@@ -1,11 +1,15 @@
 import { type EventOutPutModel } from '@/app/model/output'
 import { type EventContractRepository } from '@/core/repositories'
-import { EventFindAllRepositoryError, EventFindByRangeOfDateRepositoryError, EventFindByTypeRepositoryError } from '@/core/repositories/error'
-import { EventPrismaRepository } from '@/infra/repositories'
 import { left, right } from '@/shared/error/either'
 import { describe, test, expect, vi, beforeAll, afterAll, beforeEach, type MockedObject } from 'vitest'
+import { EventPrismaRepository } from '@/infra/repositories/prisma'
+import {
+  EventFindAllRepositoryError,
+  EventFindByRangeOfDateRepositoryError,
+  EventFindByTypeRepositoryError
+} from '@/core/repositories/error'
 
-vi.mock('@/infra/repositories')
+vi.mock('@/infra/repositories/prisma/event-repository')
 
 interface Factory {
   sut: MockedObject<EventContractRepository>
