@@ -22,7 +22,7 @@
   "scripts": {
     "test": "vitest",
     "dev": "tsnd --ignore-watch node_modules --transpile-only -r tsconfig-paths/register src/main/index.ts",
-    "docker:up": "docker-compose -f ./docker/docker-compose.yml up -d & yarn migrate:create",
+    "docker:up": "docker-compose -f ./docker/docker-compose.yml up -d & yarn prisma generate & yarn migrate:create",
     "docker:build": "docker-compose -f ./docker/docker-compose.yml up -d & yarn migrate:create",
     "migrate:create": "prisma migrate dev --name create_tables",
     "migrate:reset": "prisma migrate reset",
