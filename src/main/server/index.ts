@@ -5,5 +5,5 @@ const app = Express()
 const router = new Routers(Express.Router())
 app.use(Express.json())
 
-app.use(router.build())
+app.use(router.build.bind(router))
 export { app }
