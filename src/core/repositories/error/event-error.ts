@@ -1,20 +1,20 @@
-export class EventFindAllError extends Error {
+export class EventFindAllRepositoryError extends Error {
   constructor (message: string) {
     super(message)
-    this.name = 'EventFindAllError'
+    this.name = 'EventFindAllRepositoryError'
   }
 }
 
-export class EventFindByTypeError extends Error {
+export class EventFindByTypeRepositoryError extends Error {
   constructor (message: string) {
     super(message)
-    this.name = 'EventFindByTypeError'
+    this.name = 'EventFindByTypeRepositoryError'
   }
 }
 
-export class EventFindByRangeOfDateError extends Error {
+export class EventFindByRangeOfDateRepositoryError extends Error {
   constructor (message: string) {
     super(message)
-    this.name = 'EventFindByRangeOfDateError'
+    this.name = 'EventFindByRangeOfDateRepositoryError'
   }
 }
