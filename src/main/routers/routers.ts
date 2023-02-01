@@ -27,7 +27,7 @@ export class Routers {
   build (): Router {
     for (const method of this.getRouterMethods()) {
       const func: any = Reflect.get(this, method)
-      func()
+      func.apply(this)
     }
 
     return this.router
