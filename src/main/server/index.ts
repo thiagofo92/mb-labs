@@ -9,5 +9,5 @@ const router = new Routers(Express.Router())
 app.use(Express.json())
 app.use('/api-docs', SwaggerServer, SwaggerSetUp(SwaggerConfig))
 
-app.use(router.build.apply(router))
+app.use('/api', router.build.apply(router))
 export { app }
