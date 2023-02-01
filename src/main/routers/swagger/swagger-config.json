@@ -24,7 +24,7 @@
   ],
   "paths": {
     "/api/event/find-all/": {
-      "post": {
+      "get": {
         "tags": [
           "Event"
         ],
@@ -35,7 +35,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#components/schemas/ResponseCreatedClient"
+                  "$ref": "#components/schemas/ResponseEvent"
                 }
               }
             }
@@ -48,53 +48,53 @@
           }
         }
       }
-    },
-    "components": {
-      "schemas": {
-        "ResponseEvent": {
-          "type": "array",
-          "items": {
-            "properties": {
-              "id": {
-                "type": "integer",
-                "description": "ID do evento",
-                "example": 1
-              },
-              "name": {
-                "type": "string",
-                "description": "Nome do evento",
-                "example": "Palestra USP"
-              },
-              "type": {
-                "type": "string",
-                "description": "Tipo do evento - (Empresa ou Universidade)",
-                "example": "empresa"
-              },
-              "startDate": {
-                "type": "string",
-                "description": "Data de inicío do evento",
-                "example": "12-01-2023"
-              },
-              "endDate": {
-                "type": "string",
-                "description": "Data de termino do evento",
-                "example": "13-01-2023"
-              },
-              "startHour": {
-                "type": "string",
-                "description": "Horário de inicio",
-                "example": "08:00:00"
-              },
-              "endHour": {
-                "type": "string",
-                "description": "Horario de termino",
-                "example": "08:00:00"
-              },
-              "price": {
-                "type": "string",
-                "description": "Preço do evento",
-                "example": "150.00"
-              },
+    }
+  },
+  "components": {
+    "schemas": {
+      "ResponseEvent": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "id": {
+              "type": "integer",
+              "description": "ID do evento",
+              "example": 1
+            },
+            "name": {
+              "type": "string",
+              "description": "Nome do evento",
+              "example": "Palestra USP"
+            },
+            "type": {
+              "type": "string",
+              "description": "Tipo do evento - (Empresa ou Universidade)",
+              "example": "empresa"
+            },
+            "startDate": {
+              "type": "string",
+              "description": "Data de inicío do evento",
+              "example": "12-01-2023"
+            },
+            "endDate": {
+              "type": "string",
+              "description": "Data de termino do evento",
+              "example": "13-01-2023"
+            },
+            "startHour": {
+              "type": "string",
+              "description": "Horário de inicio",
+              "example": "08:00:00"
+            },
+            "endHour": {
+              "type": "string",
+              "description": "Horario de termino",
+              "example": "08:00:00"
+            },
+            "price": {
+              "type": "string",
+              "description": "Preço do evento",
+              "example": "150.00"
             }
           }
         }
