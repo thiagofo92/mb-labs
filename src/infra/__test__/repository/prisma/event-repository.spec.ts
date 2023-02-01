@@ -1,6 +1,6 @@
 import { type EventOutPutModel } from '@/app/model/output'
 import { type EventContractRepository } from '@/core/repositories'
-import { EventFindAllError, EventFindByRangeOfDateError, EventFindByTypeError } from '@/core/repositories/error'
+import { EventFindAllRepositoryError, EventFindByRangeOfDateRepositoryError, EventFindByTypeRepositoryError } from '@/core/repositories/error'
 import { EventPrismaRepository } from '@/infra/repositories'
 import { left, right } from '@/shared/error/either'
 import { describe, test, expect, vi, beforeAll, afterAll, beforeEach, type MockedObject } from 'vitest'
@@ -98,27 +98,27 @@ describe('# Event repository', () => {
   test('Error to find all', async () => {
     const { sut } = factory()
 
-    sut.findAll.mockResolvedValueOnce(left(new EventFindAllError('Test')))
+    sut.findAll.mockResolvedValueOnce(left(new EventFindAllRepositoryError('Test')))
     const result = await sut.findAll()
 
-    expect(result.value).instanceOf(EventFindAllError)
+    expect(result.value).instanceOf(EventFindAllRepositoryError)
   })
 
   test('Error to find by type', async () => {
     const { sut } = factory()
 
-    sut.findByType.mockResolvedValueOnce(left(new EventFindByTypeError('Test')))
+    sut.findByType.mockResolvedValueOnce(left(new EventFindByTypeRepositoryError('Test')))
     const result = await sut.findByType('')
 
-    expect(result.value).instanceOf(EventFindByTypeError)
+    expect(result.value).instanceOf(EventFindByTypeRepositoryError)
   })
 
   test('Error to find by range of date', async () => {
     const { sut } = factory()
 
-    sut.findByRangeOfDate.mockResolvedValueOnce(left(new EventFindByRangeOfDateError('Test')))
+    sut.findByRangeOfDate.mockResolvedValueOnce(left(new EventFindByRangeOfDateRepositoryError('Test')))
     const result = await sut.findByRangeOfDate({} as any)
 
-    expect(result.value).instanceOf(EventFindByRangeOfDateError)
+    expect(result.value).instanceOf(EventFindByRangeOfDateRepositoryError)
   })
 })
