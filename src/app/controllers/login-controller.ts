@@ -1,9 +1,10 @@
 import { type LoginUseCaseContract } from '@/core/use-case'
 import { type ResponseOutPutModel } from '../model/output/responde-output-model'
-import { createdReponse, internalError, notAuthorized, successResponse } from '../helpers/http-helpers'
+import { badRequest, createdReponse, internalError, notAuthorized, successResponse } from '../helpers/http-helpers'
 import { LoginValidateNotAuthorizedUseCaseError } from '@/core/use-case/error'
 import { type RequestInputModel } from '../model/input/request-input-model'
 import { type LoginValidateInput, type LoginCreateInput } from '../model/input'
+import { LoginCreateUniqueFieldRepositoryError } from '@/core/repositories/error'
 
 export class LoginController {
   constructor (private readonly loginUseCase: LoginUseCaseContract) {}
@@ -26,7 +27,7 @@ export class LoginController {
 
   private checkErrors (instance: Error): ResponseOutPutModel {
     if (instance instanceof LoginValidateNotAuthorizedUseCaseError) return notAuthorized()
-
+    if (instance instanceof LoginCreateUniqueFieldRepositoryError) return badRequest(instance.message)
     return internalError(instance.message)
   }
 }
