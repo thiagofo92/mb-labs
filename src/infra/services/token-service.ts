@@ -5,7 +5,7 @@ import { left, type Either, right } from '@/shared/error/either'
 export class TokenService implements TokenServiceContract {
   async create (id: string): Promise<Either<TokenServiceCreateError, string>> {
     try {
-      return right('')
+      return right('AUTHORIZED')
     } catch (error: any) {
       return left(new TokenServiceCreateError(error.message))
     }
