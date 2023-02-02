@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Login {
+  id          String      @id @unique
+  email       String      @unique
+  password    String
+  Order       Order[]
+
+  @@map("login")
+}
+
+model Event {
+  id          Int         @id @default(autoincrement())
+  idType      Int         @map("id_type") @unique
+  name        String
+  startDate   DateTime    @db.Date()
+  endDate     DateTime    @db.Date()
+  startHour   DateTime    @db.Time()
+  endHour     DateTime    @db.Time()
+  price       Decimal     @db.Decimal(15,2)
+  EventType   EventType   @relation(fields: [idType], references: [id])
+  Order       Order[]
+
+  @@map("event")
+}
+
+model EventType {
+  id           Int        @id @default(autoincrement()) @unique
+  Event        Event?
+  type         String
+
+  @@map("event_type")
+}
+
+model Order {
+  id          Int         @id @default(autoincrement()) @unique
+  idLogin     String      @map("id_login")
+  idEvent     Int         @map("id_event")
+  Login       Login       @relation(fields: [idLogin], references: [id])
+  Event       Event       @relation(fields: [idEvent], references: [id])
+  amount      Int
+  payment     String
+
+  @@map("order")
+}

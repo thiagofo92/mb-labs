@@ -1,0 +1,27 @@
+version: '3.8'
+
+services: 
+    api-mb-labs:
+        build: .
+        container_name: api-mb
+        restart: always
+        links:
+            - "mb-labs:mb-labs"
+        ports:
+          - 3000:3000
+        environment:
+            SERVER_HOST: 0.0.0.0
+            SERVER_PORT: 3000
+            DATABASE_URL: mysql://root:12344321@mb-labs:3306/mb_labs?schema=public
+
+    mb-labs:
+        image: mysql:8
+        container_name: mb-labs
+        restart: always
+        ports:
+            - '3306:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: 12344321
+            MYSQL_USER: admin
+            MYSQL_PASSWORD: 12344321
+            MYSQL_DATABASE: mb_labs

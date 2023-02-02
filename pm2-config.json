@@ -1,0 +1,11 @@
+{
+  "apps": [
+    {
+      "name": "api-mb-labs",
+      "cwd": "/var/mb-labs/",
+      "script": "./main/index.js",
+      "watch": true,
+      "log_date_format": "MM/DD/YYYY HH:mm:ss"
+    }
+  ]
+}

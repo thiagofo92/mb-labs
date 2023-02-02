@@ -1,0 +1,1 @@
+npm run migrate:create; npm run seed ;pm2-runtime pm2-config.json
