@@ -2,7 +2,7 @@ import { LoginValidateRepositoryError } from '@/core/repositories/error'
 import { type LoginContractRepository } from '@/core/repositories/login-repository'
 import { type LoginUseCaseContract } from '@/core/use-case'
 import {
-  LoginCreateUseCaseError,
+  type LoginCreateUseCaseError,
   LoginValidateNotAuthorizedUseCaseError,
   LoginValidateTokenUseCaseError
 } from '@/core/use-case/error'
@@ -19,7 +19,7 @@ export class LoginUseCase implements LoginUseCaseContract {
     const login = new LoginEntity(input)
     const result = await this.loginRepository.create(login)
 
-    if (result.isLeft()) return left(new LoginCreateUseCaseError('Internal Error'))
+    if (result.isLeft()) return left(result.value)
 
     return right(result.value)
   }
