@@ -1,9 +1,13 @@
 import { type LoginEntity } from '@/core/entities'
-import { LoginCreateRepositoryError, LoginValidateRepositoryError } from '@/core/repositories/error'
 import { type LoginContractRepository } from '@/core/repositories/login-repository'
 import { left, right, type Either } from '@/shared/error/either'
 import { connection } from './connection/connection'
 import { type LoginCreateOutPutModel } from '@/app/model/output'
+import {
+  LoginCreateRepositoryError,
+  LoginCreateUniqueFieldRepositoryError,
+  LoginValidateRepositoryError
+} from '@/core/repositories/error'
 
 export class LoginPrismaRepository implements LoginContractRepository {
   async create (input: LoginEntity): Promise<Either<LoginCreateRepositoryError, LoginCreateOutPutModel>> {
@@ -17,6 +21,9 @@ export class LoginPrismaRepository implements LoginContractRepository {
       })
       return right({ id: result.id })
     } catch (error: any) {
+      const errorUniqueField = 'P2002'
+      if (error.code === errorUniqueField) return left(new LoginCreateUniqueFieldRepositoryError('Email already register'))
+
       return left(new LoginCreateRepositoryError(error.message))
     }
   }
