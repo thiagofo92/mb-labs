@@ -16,6 +16,7 @@
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.1.2",
+    "tscpaths": "^0.0.9",
     "typescript": "*",
     "vitest": "^0.28.3"
   },
@@ -26,7 +27,9 @@
     "docker:build": "docker-compose -f ./docker/docker-compose.yml up -d & yarn migrate:create",
     "migrate:create": "prisma migrate dev --name create_tables",
     "migrate:reset": "prisma migrate reset",
-    "seed": "prisma db seed"
+    "seed": "prisma db seed",
+    "build": "tsc --project tsconfig-prod.json && tscpaths -p tsconfig-prod.json -s ./src -o ./dist",
+    "prod": "node dist/main"
   },
   "prisma": {
     "schema": "src/infra/repositories/prisma/schema/db.prisma",
