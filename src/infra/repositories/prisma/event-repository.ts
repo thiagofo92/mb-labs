@@ -16,6 +16,11 @@ type PrismaEventOutPut = Array<Event & {
   }
 }>
 
+interface FormatDateAndTime {
+  locale: string
+  optionsDate: Intl.DateTimeFormatOptions
+  optionsHour: Intl.DateTimeFormatOptions
+}
 export class EventPrismaRepository implements EventContractRepository {
   async findAll ():
   Promise<Either<EventFindAllRepositoryError, EventOutPutModel[] | null>> {
@@ -74,8 +79,8 @@ export class EventPrismaRepository implements EventContractRepository {
       const result = await connection.event.findMany({
         where: {
           startDate: {
-            gte: input.startDate,
-            lte: input.endDate
+            gte: new Date(input.startDate),
+            lte: new Date(input.endDate)
           }
         },
         include: {
@@ -98,15 +103,28 @@ export class EventPrismaRepository implements EventContractRepository {
   }
 
   private formatOutPut (input: PrismaEventOutPut): EventOutPutModel [] {
-    return input.map<EventOutPutModel>(item => ({
-      id: item.id,
-      name: item.name,
-      type: item.EventType.type,
-      startDate: item.startDate.toDateString(),
-      endDate: item.endDate.toDateString(),
-      startHour: item.startHour.toTimeString(),
-      endHour: item.endHour.toTimeString(),
-      price: String(item.price)
-    }))
+    const format: FormatDateAndTime = {
+      locale: 'pt-BR',
+      optionsDate: {
+        timeZone: 'UTC',
+        dateStyle: 'short'
+      },
+      optionsHour: {
+        timeZone: 'UTC',
+        timeStyle: 'medium'
+      }
+    }
+    return input.map<EventOutPutModel>(item => {
+      return {
+        id: item.id,
+        name: item.name,
+        type: item.EventType.type,
+        startDate: item.startDate.toLocaleDateString(format.locale, format.optionsDate),
+        endDate: item.endDate.toLocaleDateString(format.locale, format.optionsDate),
+        startHour: item.startHour.toLocaleTimeString(format.locale, format.optionsHour),
+        endHour: item.endHour.toLocaleTimeString(format.locale, format.optionsHour),
+        price: String(item.price)
+      }
+    })
   }
 }
