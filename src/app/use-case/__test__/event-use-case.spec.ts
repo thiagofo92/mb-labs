@@ -19,15 +19,29 @@ interface Factory {
   fakeData: EventOutPutModel []
 }
 
+const FORMAT: any = {
+  locale: 'pt-BR',
+  optionsDate: {
+    timeZone: 'UTC',
+    dateStyle: 'short'
+  },
+  optionsHour: {
+    timeZone: 'UTC',
+    timeStyle: 'medium'
+  }
+}
+
 function factory (): Factory {
   const repositoryMocked = vi.mocked(new EventPrismaRepository())
   const sut = new EventUseCase(repositoryMocked)
+  const date = new Date()
+
   const fakeData: EventOutPutModel [] = [{
     id: 1,
-    startDate: new Date(),
-    endDate: new Date(),
-    startHour: new Date(),
-    endHour: new Date(),
+    startDate: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsDate).format(date),
+    endDate: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsDate).format(date),
+    startHour: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsHour).format(date),
+    endHour: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsHour).format(date),
     type: 'universidade',
     name: 'USP',
     price: '1111'
@@ -55,10 +69,10 @@ describe('# Event usecase', () => {
 
     const expected: EventOutPutModel[] = [{
       id: 1,
-      startDate: date,
-      endDate: date,
-      startHour: date,
-      endHour: date,
+      startDate: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsDate).format(date),
+      endDate: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsDate).format(date),
+      startHour: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsHour).format(date),
+      endHour: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsHour).format(date),
       type: 'universidade',
       name: 'USP',
       price: '1111'
@@ -95,10 +109,10 @@ describe('# Event usecase', () => {
 
     const expected: EventOutPutModel[] = [{
       id: 1,
-      startDate: date,
-      endDate: date,
-      startHour: date,
-      endHour: date,
+      startDate: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsDate).format(date),
+      endDate: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsDate).format(date),
+      startHour: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsHour).format(date),
+      endHour: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsHour).format(date),
       type: 'universidade',
       name: 'USP',
       price: '1111'
@@ -138,10 +152,10 @@ describe('# Event usecase', () => {
 
     const expected: EventOutPutModel[] = [{
       id: 1,
-      startDate: date,
-      endDate: date,
-      startHour: date,
-      endHour: date,
+      startDate: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsDate).format(date),
+      endDate: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsDate).format(date),
+      startHour: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsHour).format(date),
+      endHour: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsHour).format(date),
       type: 'universidade',
       name: 'USP',
       price: '1111'

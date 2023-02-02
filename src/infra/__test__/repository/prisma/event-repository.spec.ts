@@ -16,15 +16,28 @@ interface Factory {
   mockedData: EventOutPutModel[]
 }
 
+const FORMAT: any = {
+  locale: 'pt-BR',
+  optionsDate: {
+    timeZone: 'UTC',
+    dateStyle: 'short'
+  },
+  optionsHour: {
+    timeZone: 'UTC',
+    timeStyle: 'medium'
+  }
+}
+
 function factory (): Factory {
   const repository = new EventPrismaRepository()
   const sut = vi.mocked(repository)
+  const date = new Date()
   const mockedData: EventOutPutModel [] = [{
     id: 1,
-    startDate: new Date(),
-    endDate: new Date(),
-    startHour: new Date(),
-    endHour: new Date(),
+    startDate: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsDate).format(date),
+    endDate: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsDate).format(date),
+    startHour: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsHour).format(date),
+    endHour: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsHour).format(date),
     type: 'universidade',
     name: 'USP',
     price: '1111'
@@ -51,13 +64,13 @@ describe('# Event repository', () => {
     sut.findAll.mockResolvedValueOnce(right(mockedData))
 
     const result = await sut.findAll()
-
+    const date = new Date()
     const expected: EventOutPutModel [] = [{
       id: 1,
-      startDate: new Date(),
-      endDate: new Date(),
-      startHour: new Date(),
-      endHour: new Date(),
+      startDate: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsDate).format(date),
+      endDate: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsDate).format(date),
+      startHour: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsHour).format(date),
+      endHour: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsHour).format(date),
       type: 'universidade',
       name: 'USP',
       price: '1111'
@@ -73,12 +86,13 @@ describe('# Event repository', () => {
 
     const result = await sut.findByType('universidade')
 
+    const date = new Date()
     const expected: EventOutPutModel [] = [{
       id: 1,
-      startDate: new Date(),
-      endDate: new Date(),
-      startHour: new Date(),
-      endHour: new Date(),
+      startDate: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsDate).format(date),
+      endDate: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsDate).format(date),
+      startHour: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsHour).format(date),
+      endHour: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsHour).format(date),
       type: 'universidade',
       name: 'USP',
       price: '1111'
@@ -98,12 +112,13 @@ describe('# Event repository', () => {
 
     const result = await sut.findByRangeOfDate(content)
 
+    const date = new Date()
     const expected: EventOutPutModel [] = [{
       id: 1,
-      startDate: new Date(),
-      endDate: new Date(),
-      startHour: new Date(),
-      endHour: new Date(),
+      startDate: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsDate).format(date),
+      endDate: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsDate).format(date),
+      startHour: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsHour).format(date),
+      endHour: Intl.DateTimeFormat(FORMAT.locale, FORMAT.optionsHour).format(date),
       type: 'universidade',
       name: 'USP',
       price: '1111'
