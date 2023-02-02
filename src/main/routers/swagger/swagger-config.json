@@ -48,6 +48,261 @@
           }
         }
       }
+    },
+    "/api/event/by-type/": {
+      "get": {
+        "tags": [
+          "Event"
+        ],
+        "description": "Buscar todos os eventos do banco de dados filtrando por tipo",
+        "parameters": [{
+          "in": "query",
+          "name": "type",
+          "example": "empresa"
+        }],
+        "responses": {
+          "200": {
+            "description": "Dados localizados com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/ResponseEvent"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parametro invalido"
+          },
+          "404": {
+            "description": "Não possui registro de eventos no banco"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
+    },
+    "/api/event/by-date/": {
+      "get": {
+        "tags": [
+          "Event"
+        ],
+        "description": "Buscar todos os eventos do banco de dados filtrando por data de inicío e data de termino",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "startDate",
+            "example": "01/02/2023"
+          },
+          {
+            "in": "query",
+            "name": "endDate",
+            "example": "02/02/2023"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dados localizados com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#components/schemas/ResponseEvent"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parametro invalido"
+          },
+          "404": {
+            "description": "Não possui registro de eventos no banco"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
+    },
+    "/api/login/create/": {
+      "post": {
+        "tags": [
+          "Login"
+        ],
+        "description": "Criação do login de usuário",
+        "requestBody": {
+          "description": "ID do usuário",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email", "password"],
+                "description": "Dados para criar o usuário",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "teste@teste.com.br"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "12345678",
+                    "description": "A senha deve ter no minimo 8 caracteres"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "ID do usuário",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "70b5414f-345d-41f9-8aa1-26276108b631"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parametro invalido"
+          },
+          "404": {
+            "description": "Não possui registro de eventos no banco"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
+    },
+    "/api/login/validate/": {
+      "post": {
+        "tags": [
+          "Login"
+        ],
+        "description": "Buscar todos os eventos do banco de dados filtrando por data de inicío e data de termino",
+        "requestBody": {
+          "description": "ID do usuário",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email", "password"],
+                "description": "Dados para criar o usuário",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "test@test.com.br"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "123456789",
+                    "description": "A senha deve ter no minimo 8 caracteres"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Dados localizados com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                 "type": "object",
+                 "properties": {
+                  "idLogin": {
+                    "type": "string",
+                    "example": "f2535f68-1594-49b2-b3b4-73a6e0bfe3f5"
+                  },
+                  "token": {
+                    "type": "string",
+                    "example": "AUTHORIZED"
+                  }
+                 }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Acesso não autorizado"
+          },
+          "400": {
+            "description": "Parametro invalido"
+          },
+          "404": {
+            "description": "Não possui registro de eventos no banco"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
+    },
+    "/api/order/execute/": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Buscar todos os eventos do banco de dados filtrando por data de inicío e data de termino",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "idLogin": {
+                    "type": "string",
+                    "example": "f2535f68-1594-49b2-b3b4-73a6e0bfe3f5"
+                  },
+                  "idEvent": {
+                    "type": "integer",
+                    "example": "1"
+                  },
+                  "amount": {
+                    "type": "integer",
+                    "example": "1"
+                  },
+                  "payment": {
+                    "type": "string",
+                    "example": "cartão"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Dados localizados com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parametro invalido"
+          },
+          "404": {
+            "description": "Não possui registro de eventos no banco"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -74,12 +329,12 @@
             "startDate": {
               "type": "string",
               "description": "Data de inicío do evento",
-              "example": "12-01-2023"
+              "example": "12/01/2023"
             },
             "endDate": {
               "type": "string",
               "description": "Data de termino do evento",
-              "example": "13-01-2023"
+              "example": "13/01/2023"
             },
             "startHour": {
               "type": "string",
