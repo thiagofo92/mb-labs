@@ -7,14 +7,15 @@ void (async () => {
       data: {
         id: randomUUID(),
         email: 'test@test.com.br',
-        password: '1234567'
+        password: '123456789'
       }
     })
 
-    const eventType = await connection.eventType.create({
+    const eventTypeCompany = await connection.eventType.create({
       data:
         { type: 'empresa' }
     })
+
     const startDate = new Date()
     const endDate = new Date()
 
@@ -28,7 +29,28 @@ void (async () => {
         price: '1111.24',
         EventType: {
           connect: {
-            id: eventType.id
+            id: eventTypeCompany.id
+          }
+        }
+      }
+    })
+
+    const eventTypeUniversity = await connection.eventType.create({
+      data:
+        { type: 'universidade' }
+    })
+
+    await connection.event.create({
+      data: {
+        name: 'Feira de ciência',
+        startDate,
+        endDate,
+        startHour: startDate,
+        endHour: endDate,
+        price: '1111.24',
+        EventType: {
+          connect: {
+            id: eventTypeUniversity.id
           }
         }
       }
