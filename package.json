@@ -32,8 +32,8 @@
     "prod": "node dist/main"
   },
   "prisma": {
-    "schema": "src/infra/repositories/prisma/schema/db.prisma",
-    "seed": "ts-node src/infra/repositories/prisma/seed/data-fake.ts"
+    "schema": "schema/db.prisma",
+    "seed": "node schema/seed/data-fake.js"
   },
   "dependencies": {
     "@prisma/client": "^4.9.0",
