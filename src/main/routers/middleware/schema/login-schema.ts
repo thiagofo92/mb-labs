@@ -9,9 +9,9 @@ const loginSchema = Yup.object().shape({
 
 export function loginCreateMiddleware (request: Request, response: Response, next: NextFunction): void {
   loginSchema.validate(request.body, { abortEarly: false })
-    .then(_ => next)
-    .catch(error => {
-      const params: string = error.inner.map((item: any) => item.path).join(', ')
+    .then(_ => { next() })
+    .catch(({ errors }) => {
+      const params: string = errors.map((item: any) => item).join(', ')
       const message = `Invalid parameter ${params}`
       const result = badRequest(message)
       response.status(result.statusCode).json(result.data)
@@ -20,9 +20,9 @@ export function loginCreateMiddleware (request: Request, response: Response, nex
 
 export function loginValidateMiddleware (request: Request, response: Response, next: NextFunction): void {
   loginSchema.validate(request.body, { abortEarly: false })
-    .then(_ => next)
-    .catch(error => {
-      const params: string = error.inner.map((item: any) => item.path).join(', ')
+    .then(_ => { next() })
+    .catch(({ errors }) => {
+      const params: string = errors.map((item: any) => item).join(', ')
       const message = `Invalid parameter ${params}`
       const result = badRequest(message)
       response.status(result.statusCode).json(result.data)

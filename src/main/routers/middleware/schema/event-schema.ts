@@ -13,10 +13,10 @@ const eventByRangeOfDate = Yup.object().shape({
 })
 
 export function EventByRangeOfDateMiddleware (request: Request, response: Response, next: NextFunction): void {
-  eventByRangeOfDate.validate(request.body, { abortEarly: false })
+  eventByRangeOfDate.validate(request.query, { abortEarly: false })
     .then(_ => { next() })
-    .catch(error => {
-      const params: string = error.inner.map((item: any) => item.path).join(', ')
+    .catch(({ errors }) => {
+      const params: string = errors.map((item: any) => item).join(', ')
       const message = `Invalid parameter ${params}`
       const result = badRequest(message)
       response.status(result.statusCode).json(result.data)
@@ -25,9 +25,9 @@ export function EventByRangeOfDateMiddleware (request: Request, response: Respon
 
 export function EventByTypeMiddleware (request: Request, response: Response, next: NextFunction): void {
   eventByTypeSchema.validate(request.query, { abortEarly: false })
-    .then(_ => next)
-    .catch(error => {
-      const params: string = error.inner.map((item: any) => item.path).join(', ')
+    .then(_ => { next() })
+    .catch(({ errors }) => {
+      const params: string = errors.map((item: any) => item).join(', ')
       const message = `Invalid parameter ${params}`
       const result = badRequest(message)
       response.status(result.statusCode).json(result.data)
